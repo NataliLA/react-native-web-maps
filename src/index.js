@@ -13,6 +13,10 @@ class MapView extends Component {
     center: null,
   };
 
+  static defaultProps = {
+    zoom: 15,
+  };
+
   handleMapMounted = map => {
     this.map = map;
     this.props.onMapReady && this.props.onMapReady();
@@ -34,7 +38,7 @@ class MapView extends Component {
   };
 
   render() {
-    const { region, initialRegion, onRegionChange, onPress, options } = this.props;
+    const { region, initialRegion, onRegionChange, onPress, options, zoom } = this.props;
     const { center } = this.state;
     const style = this.props.style || styles.container;
 
@@ -63,7 +67,7 @@ class MapView extends Component {
           {...centerProps}
           onDragStart={onRegionChange}
           onIdle={this.onDragEnd}
-          defaultZoom={15}
+          defaultZoom={this.props.zoom}
           onClick={onPress}
           options={options}>
           {this.props.children}
